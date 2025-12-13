@@ -1,30 +1,72 @@
-import React, { use } from 'react';
-import { Link } from 'react-router';
+import React, { use, useState } from 'react';
+import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../provider/AuthProvider';
 
 const Register = () => {
 
-  const { createUser, setUser }= use(AuthContext);
-   
+  const { createUser, setUser, updateUser }= use(AuthContext);
+  const [nameError, setNameError]= useState("");
+  const [passwordError,setPasswordError]= useState("");
+  const navigate =useNavigate();
+
   const handleRegister =(e)=>{
+    
+
+
     e.preventDefault();
     console.log(e.target);
     const form = e.target;
+
     const name= form.name.value;
+    if(name.length < 5){
+            setNameError("Name should be more then 5 character");
+            return;
+
+        }
+        else{
+            setNameError("");
+        }
+
     const email = form.email.value;
     const photo = form.photo.value;
     const password = form.password.value;
+       const hasUppercase = /[A-Z]/;
+       const hasLowercase = /[a-z]/;
+
+        if(password.length < 6){
+          setPasswordError("Password must be at least 6 character");
+          return;
+        }
+        if (!hasUppercase.test(password)) {
+          setPasswordError( "Password must have at least one uppercase letter.");
+          return;
+        } 
+        if (!hasLowercase.test(password)) {
+    setPasswordError( "Password must have at least one lowercase letter.");
+    return;
+  }
+        else{
+          setPasswordError("");
+        }
+
     console.log({name,email,photo,password});
     createUser(email,password)
     .then((result) =>{
       const user = result.user;
       // console.log(user);
-      setUser(user);
+      updateUser({displayName: name, photoURL: photo}).then(()=>{
+        setUser({...user,displayName: name, photoURL: photo});
+        navigate("/");
+      }).catch((error) => {
+       console.log(error);
+       setUser(user);
+});
+      
     })
     .catch((error) =>{
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert(errorMessage)
+      alert(errorMessage,errorCode)
     });
 
   }
@@ -46,7 +88,7 @@ const Register = () => {
           <label className="label">Name</label>
           <input name="name" type="text" className="input" placeholder="Name" required />
 
-          {/* {nameError && <p className="text-sm text-error">{nameError}</p>} */}
+          {nameError && <p className="text-sm text-error">{nameError}</p>}
 
            <label className="label">Email</label>
           <input name="email" type="text" className="input" placeholder="Email"  required/>
@@ -57,7 +99,7 @@ const Register = () => {
           <label className="label">Password</label>
           <input name="password" type="password" className="input" placeholder="Password" required/>
 
-          {/* {passwordError && <p className="text-sm text-error">{passwordError}</p>} */}
+          {passwordError && <p className="text-sm text-error">{passwordError}</p>}
 
           <button className='btn mt-5 text-amber-800'>Sign in with Google</button>
 

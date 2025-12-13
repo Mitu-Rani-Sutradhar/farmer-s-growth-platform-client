@@ -8,6 +8,8 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import AuthLayout from "../layouts/AuthLayout";
 import MyInterests from "../pages/MyInterests";
+import PrivateRoute from "../provider/PrivateRoute"
+
 
 
 const router = createBrowserRouter([
@@ -31,12 +33,15 @@ const router = createBrowserRouter([
     },
     {
         path: "/allCrops",
-        element: <AllCrops></AllCrops>,
+        element: 
+            <AllCrops></AllCrops>,
     },
     
     {
         path: "/profile",
-        element: <Profile></Profile>,
+        element: 
+            <Profile></Profile>,
+    
     },
     {
         path: "/addCrops",
@@ -44,11 +49,15 @@ const router = createBrowserRouter([
     },
     {
         path: "/myPosts",
-        element: <MyPosts></MyPosts>,
+        element: <PrivateRoute>
+            <MyPosts></MyPosts>
+        </PrivateRoute>,
     },
     {
         path: "/myInterests",
-        element: <MyInterests></MyInterests>,
+        element: <PrivateRoute>
+            <MyInterests></MyInterests>
+        </PrivateRoute>,
     },
     {
         path: "/*",
