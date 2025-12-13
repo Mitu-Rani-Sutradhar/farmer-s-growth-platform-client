@@ -4,7 +4,7 @@ import { AuthContext } from '../provider/AuthProvider';
 
 const Register = () => {
 
-  const { createUser, setUser, updateUser }= use(AuthContext);
+  const { createUser, setUser, updateUser, signInWithGoogle }= use(AuthContext);
   const [nameError, setNameError]= useState("");
   const [passwordError,setPasswordError]= useState("");
   const navigate =useNavigate();
@@ -70,6 +70,16 @@ const Register = () => {
     });
 
   }
+  const handleGoogleSignin = ()=>{
+    signInWithGoogle()
+    .then((result)=>{
+       console.log(result);
+       navigate(location?.state || "/");
+    })
+    .catch(error =>{
+      console.log(error);
+    })
+  }
 
 
 
@@ -101,7 +111,7 @@ const Register = () => {
 
           {passwordError && <p className="text-sm text-error">{passwordError}</p>}
 
-          <button className='btn mt-5 text-amber-800'>Sign in with Google</button>
+          <button onClick={handleGoogleSignin} className='btn mt-5 text-amber-800'>Sign in with Google</button>
 
           <button type="submit" className="btn btn-neutral mt-4">Register</button>
         

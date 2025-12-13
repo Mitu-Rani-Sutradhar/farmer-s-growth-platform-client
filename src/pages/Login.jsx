@@ -5,7 +5,7 @@ import { AuthContext } from '../provider/AuthProvider';
 const Login = () => {
   const [error,setError]=useState("");
 
-  const {signIn}=use(AuthContext);
+  const {signIn, signInWithGoogle }=use(AuthContext);
   const location =useLocation();
   console.log(location);
 
@@ -34,6 +34,17 @@ const Login = () => {
   });
 
   };
+
+  const handleGoogleSignin = ()=>{
+    signInWithGoogle()
+    .then((result)=>{
+       console.log(result);
+       navigate(location?.state || "/");
+    })
+    .catch(error =>{
+      console.log(error);
+    })
+  }
     return (
          <div className="hero bg-base-200 ">
   <div className="hero-content flex-col lg: mx-auto ">
@@ -65,7 +76,7 @@ const Login = () => {
           <button className="link link-hover text-secondary"><Link to="/auth/register">Register</Link></button>
           
           </div>
-          <button type="submit" className='btn mt-5 text-amber-800'>Login with Google</button>
+          <button onClick={handleGoogleSignin} type="submit" className='btn mt-5 text-amber-800'>Login with Google</button>
           <button type="submit" className="btn btn-neutral mt-4">Login</button>
         </fieldset>
       </form>
