@@ -9,6 +9,7 @@ import Register from "../pages/Register";
 import AuthLayout from "../layouts/AuthLayout";
 import MyInterests from "../pages/MyInterests";
 import PrivateRoute from "../provider/PrivateRoute"
+import CropsDetails from "../pages/CropsDetails";
 
 
 
@@ -59,6 +60,14 @@ const router = createBrowserRouter([
             <MyInterests></MyInterests>
         </PrivateRoute>,
     },
+    {
+        path: "/cropDetails/:id",
+        loader:({params}) => fetch(`http://localhost:3000/crops/${params.id}`),
+        element: <PrivateRoute>
+            <CropsDetails></CropsDetails>
+        </PrivateRoute>,
+    },
+
     {
         path: "/*",
         element: <h2>Error-404</h2>,

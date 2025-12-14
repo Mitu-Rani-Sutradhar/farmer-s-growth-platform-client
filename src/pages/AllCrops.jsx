@@ -18,7 +18,7 @@ const AllCrops = () => {
             {
                AllCrops.map(crop => 
                <div className='h-[400px] w-[320px] bg-white-50 mx-auto rounded-lg mb-5 shadow-2xl'>
-             <img className='h-[200px] w-[300px] mx-auto py-3' src={crop.image} alt="" />
+             <img className='h-[200px] w-[300px] mx-auto py-3 rounded-lg' src={crop.image} alt="" />
             <div className='font-bold text-xl py-2'>
                 <h2 className='text-center'>{crop.name}</h2>
             </div>
@@ -28,7 +28,7 @@ const AllCrops = () => {
                 
              </div>
              <p className='text-center'>
-                <Link className='btn bg-orange-200 my-3 text-center'>View Details</Link>
+                <Link to={`/cropDetails/${crop._id}`} className='btn bg-orange-200 my-3 text-center'>View Details</Link>
              </p>
              </div>
                )
