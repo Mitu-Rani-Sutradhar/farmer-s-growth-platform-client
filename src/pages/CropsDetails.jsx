@@ -1,6 +1,7 @@
-import React, { use, useRef, useState } from 'react';
+import React, { use, useRef } from 'react';
 import { useLoaderData } from 'react-router';
 import { AuthContext } from '../provider/AuthProvider';
+import Swal from 'sweetalert2';
 
 const CropsDetails = () => {
 
@@ -54,7 +55,17 @@ const CropsDetails = () => {
        })
        .then(res => res.json())
        .then(data =>{
-        console.log('after placing interest', data)
+           if(data.insertedId){
+             interestModalRef.current.close();
+             Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Your interests has been saved",
+      showConfirmButton: false,
+      timer: 1500
+          });
+            
+           }
        })
 
     }
@@ -101,7 +112,7 @@ const CropsDetails = () => {
     <div className="modal-action">
       <form method="dialog">
         {/* if there is a button in form, it will close the modal */}
-        <button className="btn">Close</button>
+        <button className="btn">Cancel</button>
       </form>
     </div>
   </div>
