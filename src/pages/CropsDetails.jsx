@@ -2,24 +2,41 @@ import React, { use, useEffect, useRef, useState } from 'react';
 import { useLoaderData } from 'react-router';
 import { AuthContext } from '../provider/AuthProvider';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
     const CropsDetails = () => {
 
+// const [totalCount, setTotalCount] = useState(0);
+
+
+
     const cropsDelails =useLoaderData();
-    console.log(cropsDelails);
+    // console.log(cropsDelails);
+
+
     const [interests, setInterests] = useState([])
 
     const interestModalRef = useRef(null);
     const { user } =use(AuthContext);
 
+    
     useEffect(() =>{
-        fetch(`http://localhost:3000/crops/interests/${cropsDelails._id}`)
-        .then(res => res.json())
-        .then(data =>{
-            console.log('interests for this product', data)
-           setInterests(data)
-        })
+       axios.get(`http://localhost:3000/crops/interests/${cropsDelails._id}`)
+      .then(data=>{
+        console.log('after axios get', data)
+        setInterests(data.data)
+      })
     },[cropsDelails._id])
+
+
+    // useEffect(() =>{
+    //     fetch(`http://localhost:3000/crops/interests/${cropsDelails._id}`)
+    //     .then(res => res.json())
+    //     .then(data =>{
+    //         console.log('interests for this product', data)
+    //        setInterests(data)
+    //     })
+    // },[cropsDelails._id])
 
     
 
@@ -45,6 +62,8 @@ import Swal from 'sweetalert2';
         
 
        const message = e.target.message.value;
+       
+    
        console.log(cropsDelails._id,name, email, quantity, message);
 
        const newInterest = {
@@ -53,7 +72,9 @@ import Swal from 'sweetalert2';
         userName:  name,
         quantity: quantity,
         message: message,
-        status: "pending"
+        status: "pending",
+        
+    
 
        }
        fetch('http://localhost:3000/interests',{
@@ -88,13 +109,49 @@ import Swal from 'sweetalert2';
     }
 
     return (
-        <div>
+        <div className='bg-indigo-100'>
+
+             <h1 className='text-4xl font-bold pt-8 text-center'>Crops Details</h1>
            <div className='flex justify-between w-11/12 mx-auto pt-10'>
-            <div className='left'>
-             right site
+           
+            
+            <div className='left pl-4'>
+             
+             <img className='w-[600px] h-[300px] rounded-xl ' src={cropsDelails.image} alt="" />
+
+             <h4 className='font-semibold text-2xl p-5'>{cropsDelails.name}</h4>
+
+             <p className='pl-5'><span className='font-semibold text-lg'>Type : </span> {cropsDelails.type}</p>
+
+             <p className='pl-5'><span id="price" className='font-semibold text-lg '>Price : </span>{cropsDelails.pricePerUnit}</p>
+
+             <p className='pl-5'>Unit :<span className='font-semibold text-lg'> </span>{cropsDelails.unit}</p>
+
+             <p className='pl-5'><span id="quantity" className='font-semibold text-lg'>Quantity : </span>{cropsDelails.quantity}</p>
+
+             <p className='pl-5'><span className='font-semibold text-lg'>Description : </span>{cropsDelails.description}</p>
+       
            </div>
-           <div className='right'>
-              <button onClick={handleInterestModalOpen} className='btn btn-primary'>Interest</button>
+           <div className='right mx-auto py-20'>
+
+              <form>
+
+                <fieldset className='fieldset w-[300px] mb-4'>
+                    <label className="label text-xl font-bold">Quantity</label>
+                <input type="number"  className="input" name="quantity" placeholder='Quantity' required />
+                
+                <label className="label py-4 pb-4 text-xl font-bold">Message</label>
+                <input type="text" className="input" name="message" placeholder='Message' />
+                 
+                  
+                </fieldset>
+                <p className='mt-4 pb-4 text-xl font-bold'>Total Price : <span id="total">{}</span></p>
+
+              </form>
+
+             
+
+              <button onClick={handleInterestModalOpen} className='btn btn-primary mt-5'>Interest</button>
 
 <dialog ref={interestModalRef} className="modal modal-bottom sm:modal-middle">
   <div className="modal-box">
@@ -108,10 +165,9 @@ import Swal from 'sweetalert2';
           
           <label className="label">Email</label>
           <input type="Email" className="input" name="email" readOnly defaultValue={user.email} />
-        
           
           <label className="label">Quantity</label>
-          <input type="text" className="input" name="quantity" placeholder='Quantity' required />
+          <input type="number" className="input" name="quantity" placeholder='Quantity' required />
 
           {/* {quantityError && <p className="text-sm text-error">{quantityError}</p>} */}
 
@@ -119,7 +175,7 @@ import Swal from 'sweetalert2';
           <input type="text" className="input" name="message" placeholder='Message' />
           
          
-        
+          
       
 
           <button className="btn btn-neutral mt-4">Place your Interest</button>
@@ -139,8 +195,8 @@ import Swal from 'sweetalert2';
            </div>
            </div>
 
-             <div>
-              <h2 className='text-3xl'>Interests for this crop:{interests.length}</h2>
+             <div className='px-10'>
+              <h2 className='text-4xl font-bold py-8 text-center'>Interests for this crops:{interests.length}</h2>
 
               <div className="overflow-x-auto">
   <table className="table">
@@ -154,7 +210,7 @@ import Swal from 'sweetalert2';
         <th>Quantity</th>
         <th>Message</th>
         <th>Status</th>
-        <th>Actions</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -184,7 +240,8 @@ import Swal from 'sweetalert2';
         <td>{interest.status}</td>
         <td>{interest.Actions}</td>
         <th>
-          <button className="btn btn-ghost btn-xs">details</button>
+          <button className="btn btn-ghost btn-xs">Accept</button>
+          <button className="btn btn-ghost btn-xs">Reject</button>
         </th>
       </tr>
         )
