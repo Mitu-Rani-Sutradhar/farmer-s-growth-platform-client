@@ -48,6 +48,7 @@ import axios from 'axios';
     const handleInterestSubmit =(e)=>{
 
         e.preventDefault();
+      
        const name = e.target.name.value;
        const email = e.target.email.value;
        const quantity = e.target.quantity.value;
@@ -64,19 +65,49 @@ import axios from 'axios';
        const message = e.target.message.value;
        
     
-       console.log(cropsDelails._id,name, email, quantity, message);
+       console.log(cropsDelails._id, name, email, quantity, message);
 
        const newInterest = {
-        cropId: cropsDelails._id,
-        userEmail: email,
-        userName:  name,
-        quantity: quantity,
-        message: message,
-        status: "pending",
-        
-    
+               
+                // userEmail: email,
+                // userName:  name,
+                // quantity: quantity,
+                // message: message,
+                // status: "pending"
+          
 
+
+        cropId: cropsDelails._id,
+        name: cropsDelails.name,
+        type: cropsDelails.type,
+        pricePerUnit: cropsDelails.pricePerUnit,
+        unit: cropsDelails.unit,
+        quantity: cropsDelails.quantity,
+        description: cropsDelails.description,
+        location: cropsDelails.location,
+        image: cropsDelails.image,
+        interests:[
+                {
+                
+                userEmail: email,
+                userName:  name,
+                quantity: quantity,
+                message: message,
+                status: "pending",
+              }
+          ],
+        Owner: {
+            _id : cropsDelails.owner._id,
+            ownerEmail: cropsDelails.owner.ownerEmail,
+            ownerName: cropsDelails.owner.ownerName
+        }
+      
        }
+
+
+
+
+
        fetch('http://localhost:3000/interests',{
         method: 'POST',
         headers: {
@@ -217,28 +248,28 @@ import axios from 'axios';
       {/* row 1 */}
       
       {
-        interests.map((interest, index) =>
+        interests.map((crop, index) =>
              <tr>
         <th>
           {index + 1}
         </th>
         <td>
           <div className="flex items-center gap-3">
-            <div className="avatar">
-              
-            </div>
-            <div>
-              <div className="font-bold">{interest.userName}</div>
+            
+            
+              <div className="font-bold">{crop.interests?.[0]?.userName}</div>
              
-            </div>
+            
           </div>
         </td>
         <td>
-          {interest.quantity}
+          <div>
+            {crop.interests?.[0]?.quantity}
+          </div>
         </td>
-        <td>{interest.message}</td>
-        <td>{interest.status}</td>
-        <td>{interest.Actions}</td>
+        <td>{crop.interests?.[0]?.message}</td>
+        <td>{crop.interests?.[0]?.status}</td>
+        <td>{}</td>
         <th>
           <button className="btn btn-ghost btn-xs">Accept</button>
           <button className="btn btn-ghost btn-xs">Reject</button>

@@ -8,6 +8,7 @@ const MyInterests = () => {
     const {user} = use(AuthContext);
 
     const [interests, setInterests] =useState([]);
+    
  
 
 
@@ -48,6 +49,7 @@ const MyInterests = () => {
       interests.map((interest, index) =><tr key={interest._id}>
         <th>
           {index+1}
+          
         </th>
         <td>
         

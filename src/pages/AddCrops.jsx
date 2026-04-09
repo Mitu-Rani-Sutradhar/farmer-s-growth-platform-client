@@ -34,8 +34,11 @@ const AddCrops = () => {
                       });
         }
      })
+     .catch(err => {
+        console.log(err)
+    })
 
-    }
+        }
     return (
         <div className='w-11/12 mx-auto'>
             <h1 className='text-4xl font-bold py-8 text-center'>Add Crops</h1>
