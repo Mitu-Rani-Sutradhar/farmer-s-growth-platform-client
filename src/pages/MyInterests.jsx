@@ -6,16 +6,15 @@ import { AuthContext } from '../provider/AuthProvider';
 const MyInterests = () => {
 
     const {user} = use(AuthContext);
+    console.log(user.email);
 
     const [interests, setInterests] =useState([]);
     
- 
-
-
    useEffect(()=>{
        if(user?.email){
-        fetch(`http://localhost:3000/interests?email=${user.email}`)
-        .then(res=>res.json())
+        
+        fetch(`http://localhost:3000/getByEmail?email=${user.email}`)
+        .then(res => res.json())
         .then(data =>{
             console.log(data);
             setInterests(data)
@@ -38,8 +37,8 @@ const MyInterests = () => {
         <th>Owner-Name:</th>
         <th>quantity:</th>
         <th>Users-Message:</th>
-        <th>Status:
-        </th>
+        <th>Status:</th>
+        <th>Action:</th>
       </tr>
     </thead>
     <tbody>
@@ -52,29 +51,30 @@ const MyInterests = () => {
           
         </th>
         <td>
-        
+             {interest.name}
         </td>
 
         <td>
-        
+             {interest?.Owner?.ownerName}
         </td>
 
-        <td>{interest.quantity}</td>
+        <td>{interest?.interests?.[0].quantity}</td>
 
-        <td>{interest.message}</td>
+        <td>{interest?.interests?.[0]?.message}</td>
         
         <td>
-               {interest.status=== 'pending'?
-               <div className='badge badge-warning'>
-                {interest.status}
-                </div>: <div className='badge badge-success'>
-                {interest.status}</div>
+            
+                {interest.interests?.[0]?.status}
+               
                 
-                }
+                
         </td>
-        <th>
-          
-        </th>
+        <td>
+          <td className="flex items-center gap-3">
+          <button className="btn btn-ghost btn-xs bg-amber-200">Accept</button>
+          <button className="btn btn-ghost btn-xs bg-amber-500">Reject</button>
+        </td>
+        </td>
 
       </tr>)
       }

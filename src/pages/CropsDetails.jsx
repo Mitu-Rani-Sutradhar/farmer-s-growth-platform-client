@@ -5,8 +5,17 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 
     const CropsDetails = () => {
+      
 
-// const [totalCount, setTotalCount] = useState(0);
+
+
+      // const [userQuantity, setUserQuantity] = useState(0);
+      // const totalPrice = userQuantity * Number(cropsDelails.pricePerUnit);
+
+
+
+
+
 
 
 
@@ -101,6 +110,10 @@ import axios from 'axios';
             ownerEmail: cropsDelails.owner.ownerEmail,
             ownerName: cropsDelails.owner.ownerName
         }
+        
+        
+ 
+
       
        }
 
@@ -141,7 +154,8 @@ import axios from 'axios';
 
     return (
         <div className='bg-indigo-100'>
-
+           
+           {/* crop details */}
              <h1 className='text-4xl font-bold pt-8 text-center'>Crops Details</h1>
            <div className='flex justify-between w-11/12 mx-auto pt-10'>
            
@@ -169,7 +183,7 @@ import axios from 'axios';
 
                 <fieldset className='fieldset w-[300px] mb-4'>
                     <label className="label text-xl font-bold">Quantity</label>
-                <input type="number"  className="input" name="quantity" placeholder='Quantity' required />
+                <input type="number"  className="input" name="quantity" placeholder='Quantity' required/>
                 
                 <label className="label py-4 pb-4 text-xl font-bold">Message</label>
                 <input type="text" className="input" name="message" placeholder='Message' />
@@ -198,7 +212,7 @@ import axios from 'axios';
           <input type="Email" className="input" name="email" readOnly defaultValue={user.email} />
           
           <label className="label">Quantity</label>
-          <input type="number" className="input" name="quantity" placeholder='Quantity' required />
+          <input type="number" className="input" name="quantity" placeholder='Quantity' required/>
 
           {/* {quantityError && <p className="text-sm text-error">{quantityError}</p>} */}
 
@@ -226,6 +240,8 @@ import axios from 'axios';
            </div>
            </div>
 
+
+             {/* interests for this crop */}
              <div className='px-10'>
               <h2 className='text-4xl font-bold py-8 text-center'>Interests for this crops:{interests.length}</h2>
 
@@ -269,11 +285,11 @@ import axios from 'axios';
         </td>
         <td>{crop.interests?.[0]?.message}</td>
         <td>{crop.interests?.[0]?.status}</td>
-        <td>{}</td>
-        <th>
-          <button className="btn btn-ghost btn-xs">Accept</button>
-          <button className="btn btn-ghost btn-xs">Reject</button>
-        </th>
+   
+        <td className="flex items-center gap-3">
+          <button className="btn btn-ghost btn-xs bg-amber-200">Accept</button>
+          <button className="btn btn-ghost btn-xs bg-amber-500">Reject</button>
+        </td>
       </tr>
         )
       }
