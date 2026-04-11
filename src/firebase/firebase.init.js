@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyChnnfmZB2ZltKe2toBvS-rpCX1gageOZQ",
-  authDomain: "farmers-growth-platform-6cef0.firebaseapp.com",
-  projectId: "farmers-growth-platform-6cef0",
-  storageBucket: "farmers-growth-platform-6cef0.firebasestorage.app",
-  messagingSenderId: "772675649816",
-  appId: "1:772675649816:web:b84a9cdf23c3ada5c85e6d"
+  apiKey: import.meta.env.VITE_APIKEY,
+  authDomain: import.meta.env.VITE_AUTHDOMAIN,
+  projectId: import.meta.env.VITE_PROJECTID,
+  storageBucket: import.meta.env.VITE_STORAGEBUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGINGSENDERID,
+  appId: import.meta.env.VITE_APPID,
 };
 
 // Initialize Firebase
