@@ -30,7 +30,7 @@ import axios from 'axios';
 
     
     useEffect(() =>{
-       axios.get(`http://localhost:3000/crops/interests/${cropsDelails._id}`)
+       axios.get(`https://farmer-s-growth-platform-server.vercel.app/crops/interests/${cropsDelails._id}`)
       .then(data=>{
         console.log('after axios get', data)
         setInterests(data.data)
@@ -39,7 +39,7 @@ import axios from 'axios';
 
 
     // useEffect(() =>{
-    //     fetch(`http://localhost:3000/crops/interests/${cropsDelails._id}`)
+    //     fetch(`https://farmer-s-growth-platform-server.vercel.app/crops/interests/${cropsDelails._id}`)
     //     .then(res => res.json())
     //     .then(data =>{
     //         console.log('interests for this product', data)
@@ -121,7 +121,7 @@ import axios from 'axios';
 
 
 
-       fetch('http://localhost:3000/interests',{
+       fetch('https://farmer-s-growth-platform-server.vercel.app/interests',{
         method: 'POST',
         headers: {
             'content-type' : 'application/json'

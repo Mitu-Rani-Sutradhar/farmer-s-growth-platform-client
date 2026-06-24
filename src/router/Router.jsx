@@ -62,7 +62,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/cropDetails/:id",
-        loader:({params}) => fetch(`http://localhost:3000/crops/${params.id}`),
+        loader:({params}) => fetch(`https://farmer-s-growth-platform-server.vercel.app/crops/${params.id}`),
         element: <PrivateRoute>
             <CropsDetails></CropsDetails>
         </PrivateRoute>,

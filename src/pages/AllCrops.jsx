@@ -1,6 +1,6 @@
 import React, { use } from 'react';
 import { Link } from 'react-router';
-const CropsPromise = fetch('http://localhost:3000/crops')
+const CropsPromise = fetch('https://farmer-s-growth-platform-server.vercel.app/crops')
 .then(res => res.json());
 
 

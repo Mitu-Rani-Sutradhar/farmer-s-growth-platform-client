@@ -29,7 +29,7 @@ const AddCrops = () => {
      const newCrop = {name,image,type,pricePerUnit,unit,quantity,description,location,owner:{ownerEmail:user.email,ownerName:user.displayName
 }}
      
-     axios.post('http://localhost:3000/crops',newCrop)
+     axios.post('https://farmer-s-growth-platform-server.vercel.app/crops',newCrop)
      .then(data =>{
         console.log(data.data)
         if(data.data.insertedId){

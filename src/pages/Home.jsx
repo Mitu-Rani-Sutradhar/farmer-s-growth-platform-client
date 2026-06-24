@@ -1,4 +1,4 @@
-import AgroNews from "../components/AgroNews";
+
 import Hero from "../components/Hero";
 import HowItWorks from "../components/HowItWorks";
 import LatestCrop from "../components/LatestCrop";
@@ -17,9 +17,6 @@ const Home = () => {
         </section>
         <section>
             <HowItWorks></HowItWorks>
-        </section>
-        <section>
-            <AgroNews></AgroNews>
         </section>
         <section>
             <Results></Results>

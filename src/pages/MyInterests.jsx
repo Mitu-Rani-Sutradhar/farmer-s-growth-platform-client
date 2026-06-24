@@ -13,7 +13,7 @@ const MyInterests = () => {
    useEffect(()=>{
        if(user?.email){
         
-        fetch(`http://localhost:3000/getByEmail?email=${user.email}`)
+        fetch(`https://farmer-s-growth-platform-server.vercel.app/getByEmail?email=${user.email}`)
         .then(res => res.json())
         .then(data =>{
             console.log(data);

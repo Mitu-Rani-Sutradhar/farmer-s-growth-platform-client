@@ -1,6 +1,6 @@
 import React, { use } from 'react';
 import { Link } from 'react-router';
-const LatestCropPromise = fetch('http://localhost:3000/latest-crops').then(res => res.json());
+const LatestCropPromise = fetch('https://farmer-s-growth-platform-server.vercel.app/latest-crops').then(res => res.json());
 
 const LatestCrop = () => {
    const latestCrops = use(LatestCropPromise);
