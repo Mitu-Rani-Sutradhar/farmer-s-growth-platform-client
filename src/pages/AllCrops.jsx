@@ -1,46 +1,60 @@
-import React, { use } from 'react';
-import { Link } from 'react-router';
-const CropsPromise = fetch('https://farmer-s-growth-platform-server.vercel.app/crops')
-.then(res => res.json());
+import React, { use } from "react";
+import { Link } from "react-router";
 
-
-   
+// Fetch Data
+const CropsPromise = fetch(
+  "https://farmer-s-growth-platform-server.vercel.app/crops"
+).then((res) => res.json());
 
 const AllCrops = () => {
-    const AllCrops = use(CropsPromise);
-    console.log(AllCrops);
-    return (
-       <div className='w-11/12 mx-auto bg-green-50 rounded-2xl'>
-        <h1 className='text-4xl font-bold py-8 text-center'>All Crops</h1>
-        
-           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-5'>
+  const crops = use(CropsPromise);
 
-            {
-               AllCrops.map(crop => 
-               <div className='h-[400px] w-[320px] bg-white-50 mx-auto rounded-lg mb-5 shadow-2xl'>
-             <img className='h-[200px] w-[300px] mx-auto py-3 rounded-lg' src={crop.image} alt="" />
-            <div className='font-bold text-xl py-2'>
-                <h2 className='text-center'>{crop.name}</h2>
+  return (
+    <div className="text-black">
+      <h1 className="text-3xl font-bold text-center my-8">
+        All Crops
+      </h1>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-8">
+        {crops.map((crop) => (
+          <div
+            key={crop._id}
+            className="h-[420px] w-[320px] bg-white rounded-lg shadow-2xl mx-auto text-black"
+          >
+            <img
+              className="h-[200px] w-[300px] mx-auto py-3 rounded-lg object-cover"
+              src={crop.image}
+              alt={crop.name}
+            />
+
+            <div className="px-5">
+              <h2 className="text-2xl font-bold text-center mb-3 text-black">
+                {crop.name}
+              </h2>
+
+              <p className="text-black mb-2">
+                <span className="font-semibold">Description:</span>{" "}
+                {crop.description}
+              </p>
+
+              <p className="font-semibold text-black mb-4">
+                Price: {crop.pricePerUnit} Tk
+              </p>
             </div>
-             <div className=' justify-between px-6'>
-               <p className='rounded-xl p-1 '>Description: {crop.description}</p>
-                <p className=' rounded-xl p-1 text-red-500'>Price-{crop.pricePerUnit} tk</p>
-                
-             </div>
-             <p className='text-center'>
-                <Link to={`/cropDetails/${crop._id}`} className='btn bg-orange-200 my-3 text-center'>View Details</Link>
-             </p>
-             </div>
-               )
-            }
-            
-                    
-        </div>
-        
-        
-        
-        </div>
-    );
+
+            <div className="flex justify-center">
+              <Link
+                to={`/cropDetails/${crop._id}`}
+                className="btn bg-orange-200 hover:bg-orange-300 text-black border-none"
+              >
+                View Details
+              </Link>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default AllCrops;
