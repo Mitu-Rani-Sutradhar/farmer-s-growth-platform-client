@@ -1,63 +1,185 @@
-import React from 'react';
+import React from "react";
+import { motion } from "framer-motion";
 
 const steps = [
   {
-    step: "Step 1:",
+    step: "01",
     title: "Digitize Your Farm",
-    tag: "(Input)",
-    desc: "We capture everything: GPS boundaries, crop history, soil reports, and real-time weather from external satellites and field sensors."
+    tag: "Input",
+    desc: "Capture farm boundaries, crop history, soil reports, weather conditions, and sensor data to create a complete digital profile of your farm.",
   },
   {
-    step: "Step 2:",
+    step: "02",
     title: "Analyze & Predict",
-    tag: "(Processing)",
-    desc: "Our AI engine processes all your data to create tailored forecasts for your specific field—predicting yields, identifying risks, and analyzing market trends."
+    tag: "AI Processing",
+    desc: "Our intelligent system analyzes your farm data to predict crop yields, identify diseases, estimate weather risks, and suggest the best farming strategies.",
   },
   {
-    step: "Step 3:",
-    title: "Receive Action Alerts",
-    tag: "(Output)",
-    desc: "Get immediate, prescriptive advice. Receive simple, localized alerts on your phone telling you exactly when and what to do to prevent loss or optimize growth."
+    step: "03",
+    title: "Receive Smart Alerts",
+    tag: "Recommendations",
+    desc: "Receive timely notifications for irrigation, fertilization, pest control, and harvesting so you can make informed decisions at the right time.",
   },
   {
-    step: "Step 4:",
-    title: "Connect & Transact",
-    tag: "(Value Chain)",
-    desc: "Instantly access high-quality inputs, verify market prices, and connect directly with bulk buyers or a community of expert farmers for real-time problem-solving."
+    step: "04",
+    title: "Connect & Trade",
+    tag: "Marketplace",
+    desc: "Connect with buyers, suppliers, and fellow farmers. Compare market prices and sell your crops through a trusted digital platform.",
   },
   {
-    step: "Step 5:",
-    title: "Track & Refine",
-    tag: "(Continuous Loop)",
-    desc: "Record your actions in the app. We track performance against predictions to make our AI smarter for your next season, ensuring your growth is continuous and proven."
+    step: "05",
+    title: "Track & Improve",
+    tag: "Continuous Growth",
+    desc: "Monitor your farming progress, compare results with previous seasons, and continuously improve productivity using data-driven insights.",
   },
 ];
 
+
+const headingAnimation = {
+  hidden: {
+    opacity: 0,
+    y: -40,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+    },
+  },
+};
+
+
+const cardAnimation = {
+  hidden: {
+    opacity: 0,
+    x: -50,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.6,
+    },
+  },
+};
+
+
 const HowItWorks = () => {
   return (
-    <div className='w-11/12 md:w-10/12 lg:w-9/12 xl:w-7/12 mx-auto'>
+    <section className="py-20 bg-gradient-to-b from-green-50 via-white to-lime-50">
 
-      <h1 className='text-2xl sm:text-3xl md:text-4xl font-bold py-6 md:py-8 text-center'>
-        How It Works
-      </h1>
+      <div className="max-w-7xl mx-auto px-4">
 
-      {steps.map((item, index) => (
-        <div
-          key={index}
-          className='flex flex-col md:flex-row md:justify-between gap-3 md:gap-6 py-5 border p-4 my-3 rounded-xl'
+
+        {/* Heading */}
+
+        <motion.div
+          variants={headingAnimation}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="text-center mb-14"
         >
-          <div className='md:w-2/5 lg:w-1/2'>
-            <p className='text-red-600'>{item.step}</p>
-            <h1 className='font-bold text-base sm:text-lg'>{item.title}</h1>
-            <p>{item.tag}</p>
-          </div>
-          <div className='md:w-3/5 lg:w-1/2 flex items-center'>
-            <p className='text-sm sm:text-base'>{item.desc}</p>
-          </div>
+
+          <span className="inline-block bg-lime-100 text-green-700 px-5 py-2 rounded-full font-semibold">
+            🌱 Easy Process
+          </span>
+
+
+          <h2 className="mt-5 text-3xl md:text-5xl font-bold text-green-800">
+            How Digital Agriculture Works
+          </h2>
+
+
+          <p className="max-w-3xl mx-auto mt-5 text-gray-600 leading-8">
+            From collecting farm data to connecting with buyers, our platform
+            guides farmers through every stage of modern agriculture with
+            intelligent technology and real-time insights.
+          </p>
+
+
+        </motion.div>
+
+
+
+        {/* Steps */}
+
+        <div className="space-y-8">
+
+
+          {steps.map((item, index) => (
+
+            <motion.div
+              key={item.step}
+              variants={cardAnimation}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{
+                delay: index * 0.15,
+              }}
+              whileHover={{
+                y: -8,
+              }}
+              className="flex flex-col md:flex-row items-center gap-6 bg-white rounded-3xl shadow-lg hover:shadow-2xl transition p-6 md:p-8 border border-green-100 border-l-[8px] border-l-green-600"
+            >
+
+
+              {/* Step Number */}
+
+              <motion.div
+                whileHover={{
+                  rotate: 360,
+                }}
+                transition={{
+                  duration: 0.6,
+                }}
+                className="flex-shrink-0 w-20 h-20 rounded-full bg-green-600 text-white flex items-center justify-center text-2xl font-bold shadow-lg"
+              >
+                {item.step}
+              </motion.div>
+
+
+
+              {/* Content */}
+
+              <div className="flex-1 text-center md:text-left">
+
+
+                <span className="inline-block bg-lime-100 text-green-700 text-sm font-semibold px-4 py-1 rounded-full mb-3">
+                  {item.tag}
+                </span>
+
+
+
+                <h3 className="text-2xl md:text-3xl font-bold text-green-800 mb-3">
+                  {item.title}
+                </h3>
+
+
+
+                <p className="text-gray-600 leading-7">
+                  {item.desc}
+                </p>
+
+
+              </div>
+
+
+            </motion.div>
+
+          ))}
+
+
         </div>
-      ))}
-    </div>
+
+
+      </div>
+
+    </section>
   );
 };
+
 
 export default HowItWorks;
